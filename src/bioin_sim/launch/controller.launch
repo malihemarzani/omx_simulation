@@ -1,0 +1,22 @@
+<launch>
+  
+  <!--<arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />-->
+  <!--<arg name="use_robot_name" default="m_open_manipulator"/>-->
+
+  <include file="$(find bioin_sim)/launch/gazebo.launch"/>
+
+  <!-- Load controllers -->
+  <rosparam command="load" file="$(find bioin_sim)/config/ros_gazebo.yaml"/>  
+  <rosparam command="load" file="$(find bioin_sim)/config/controller.yaml"/>
+
+  <!-- Start controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+        args="joint_state_controller
+              joint1_position
+              joint2_position
+              joint3_position
+              joint4_position
+              gripper_position
+              gripper_sub_position"/>    
+
+</launch>
